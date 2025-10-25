@@ -98,7 +98,7 @@ export default function HotelComparison({ hotelData }: HotelComparisonProps) {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <StarRating rating={hotel.review_rating} />
+                    {hotel.review_rating != null && <StarRating rating={hotel.review_rating} />}
                   </TableCell>
                   <TableCell>{hotel.review_count?.toLocaleString() ?? 'N/A'}</TableCell>
                   <TableCell>

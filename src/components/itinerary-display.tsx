@@ -17,12 +17,6 @@ export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
 type Destination = { name: string; description: string };
 type ItineraryDay = { day: number; activities: string };
 type HotelComparisonData = {
-  items: {
-    search_parameters: any;
-    hotels: any[];
-  }
-};
-type HotelData = {
   search_parameters: any;
   hotels: any[];
 };
