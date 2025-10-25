@@ -21,8 +21,10 @@ export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
   const destinations = itinerary.items.find(item => item.title === 'Top Destinations')?.items as Destination[] || [];
   const suggestedItinerary = itinerary.items.find(item => item.title === 'Suggested Itinerary')?.items as ItineraryDay[] || [];
   const hotelComparisonRaw = itinerary.items.find(item => item.title === 'Hotel Comparison');
-  const hotelData = (hotelComparisonRaw?.items as any)?.properties as HotelComparisonData | undefined;
   
+  // Robustly find the hotel data, whether it's at the top level of `items` or nested within `properties`.
+  const hotelData = (hotelComparisonRaw?.items?.hotels ? hotelComparisonRaw.items : hotelComparisonRaw?.items?.properties) as HotelComparisonData | undefined;
+
   return (
     <div className="w-full animate-in fade-in-50 duration-500">
       <h2 className="font-headline text-3xl md:text-4xl font-bold text-center mb-8">Your Custom Itinerary</h2>
@@ -39,7 +41,7 @@ export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
           <SuggestedItinerary itinerary={suggestedItinerary} />
         </TabsContent>
         <TabsContent value="hotels">
-            {hotelData ? <HotelComparison hotelData={hotelData} /> : <p>No hotel data available.</p>}
+            {hotelData?.hotels ? <HotelComparison hotelData={hotelData} /> : <p>No hotel data available.</p>}
         </TabsContent>
       </Tabs>
     </div>
