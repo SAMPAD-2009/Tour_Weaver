@@ -21,7 +21,7 @@ export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
   const destinations = itinerary.items.find(item => item.title === 'Top Destinations')?.items as Destination[] || [];
   const suggestedItinerary = itinerary.items.find(item => item.title === 'Suggested Itinerary')?.items as ItineraryDay[] || [];
   const hotelData = itinerary.items.find(item => item.title === 'Hotel Comparison')?.items as HotelComparisonData | undefined;
-
+  
   return (
     <div className="w-full animate-in fade-in-50 duration-500">
       <h2 className="font-headline text-3xl md:text-4xl font-bold text-center mb-8">Your Custom Itinerary</h2>
