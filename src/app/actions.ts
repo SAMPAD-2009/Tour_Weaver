@@ -1,10 +1,11 @@
 'use server';
-import { generateTourItinerary, type TourItineraryInput } from '@/ai/flows/generate-tour-itinerary';
+import { generateTourItinerary, type TourItineraryInput, type TourItineraryOutput } from '@/ai/flows/generate-tour-itinerary';
 
-export async function getItinerary(input: TourItineraryInput) {
+export async function getItinerary(input: TourItineraryInput): Promise<{ success: boolean; data?: TourItineraryOutput; error?: string; }> {
   try {
     const itinerary = await generateTourItinerary(input);
-    if (!itinerary || !itinerary.items || itinerary.items.length < 3) {
+    // Basic validation to ensure the AI returned the core objects
+    if (!itinerary || !itinerary.destinations || !itinerary.itinerary || !itinerary.hotels) {
       throw new Error("AI failed to return a valid itinerary structure.");
     }
     return { success: true, data: itinerary };

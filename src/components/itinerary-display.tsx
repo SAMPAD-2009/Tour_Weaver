@@ -10,20 +10,8 @@ type ItineraryDisplayProps = {
   itinerary: TourItineraryOutput;
 };
 
-type Destination = { name: string; description: string };
-type ItineraryDay = { day: number; activities: string };
-type HotelComparisonData = {
-  search_parameters: any;
-  hotels: any[];
-};
-
 export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
-  const destinations = itinerary.items.find(item => item.title === 'Top Destinations')?.items as Destination[] || [];
-  const suggestedItinerary = itinerary.items.find(item => item.title === 'Suggested Itinerary')?.items as ItineraryDay[] || [];
-  const hotelComparison = itinerary.items.find(item => item.title === 'Hotel Comparison');
-  
-  // The AI sometimes nests the data one level deeper.
-  const hotelData = hotelComparison?.items as HotelComparisonData | undefined;
+  const { destinations, itinerary: suggestedItinerary, hotels: hotelData } = itinerary;
 
   return (
     <div className="w-full animate-in fade-in-50 duration-500">
@@ -41,7 +29,7 @@ export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
           <SuggestedItinerary itinerary={suggestedItinerary} />
         </TabsContent>
         <TabsContent value="hotels">
-            {hotelData && hotelData.hotels ? <HotelComparison hotelData={hotelData} /> : <p>No hotel data available.</p>}
+          {hotelData ? <HotelComparison hotelData={hotelData} /> : <p>No hotel data available.</p>}
         </TabsContent>
       </Tabs>
     </div>
