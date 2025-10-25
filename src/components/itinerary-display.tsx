@@ -10,8 +10,29 @@ type ItineraryDisplayProps = {
   itinerary: TourItineraryOutput;
 };
 
+<<<<<<< HEAD
 export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
   const { destinations, itinerary: suggestedItinerary, hotels } = itinerary;
+=======
+type Destination = { name: string; description: string };
+type ItineraryDay = { day: number; activities: string };
+type HotelComparisonData = {
+  items: {
+    search_parameters: any;
+    hotels: any[];
+  }
+};
+type HotelData = {
+  search_parameters: any;
+  hotels: any[];
+};
+
+export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
+  const destinations = itinerary.items.find(item => item.title === 'Top Destinations')?.items as Destination[] || [];
+  const suggestedItinerary = itinerary.items.find(item => item.title === 'Suggested Itinerary')?.items as ItineraryDay[] || [];
+  const hotelComparisonData = itinerary.items.find(item => item.title === 'Hotel Comparison') as HotelComparisonData | undefined;
+  const hotelData = hotelComparisonData?.items as HotelData | undefined;
+>>>>>>> d5d87c7 (this is a example of hotels data provided by the ai but the app is not s)
 
   return (
     <div className="w-full animate-in fade-in-50 duration-500">
