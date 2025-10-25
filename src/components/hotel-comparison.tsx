@@ -9,7 +9,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Star, Building2, Users, IndianRupee, BadgePercent, Info } from 'lucide-react';
+import { Star, Building2, Users, IndianRupee, BadgePercent } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Badge } from './ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
@@ -18,8 +18,8 @@ type Hotel = {
   hotel_name: string;
   hotel_class: string | null;
   review_rating: number;
-  review_count: number;
-  total_stay_price_inr: number;
+  review_count?: number;
+  total_stay_price_inr?: number;
   deal_info: string | null;
 };
 
@@ -100,12 +100,16 @@ export default function HotelComparison({ hotelData }: HotelComparisonProps) {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <StarRating rating={hotel.review_rating} />
+                    {hotel.review_rating != null && <StarRating rating={hotel.review_rating} />}
                   </TableCell>
-                  <TableCell>{hotel.review_count.toLocaleString()}</TableCell>
+                  <TableCell>{hotel.review_count?.toLocaleString() ?? 'N/A'}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex flex-col items-end">
-                      <span className="font-bold">₹{hotel.total_stay_price_inr.toLocaleString()}</span>
+                      {hotel.total_stay_price_inr != null ? (
+                        <span className="font-bold">₹{hotel.total_stay_price_inr.toLocaleString()}</span>
+                      ) : (
+                        <span className="text-muted-foreground">N/A</span>
+                      )}
                       {hotel.deal_info && (
                           <TooltipProvider>
                             <Tooltip>

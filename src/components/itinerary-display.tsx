@@ -13,12 +13,6 @@ type ItineraryDisplayProps = {
 type Destination = { name: string; description: string };
 type ItineraryDay = { day: number; activities: string };
 type HotelComparisonData = {
-  items: {
-    search_parameters: any;
-    hotels: any[];
-  }
-};
-type HotelData = {
   search_parameters: any;
   hotels: any[];
 };
@@ -26,8 +20,7 @@ type HotelData = {
 export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
   const destinations = itinerary.items.find(item => item.title === 'Top Destinations')?.items as Destination[] || [];
   const suggestedItinerary = itinerary.items.find(item => item.title === 'Suggested Itinerary')?.items as ItineraryDay[] || [];
-  const hotelComparisonData = itinerary.items.find(item => item.title === 'Hotel Comparison') as HotelComparisonData | undefined;
-  const hotelData = hotelComparisonData?.items as HotelData | undefined;
+  const hotelData = itinerary.items.find(item => item.title === 'Hotel Comparison')?.items as HotelComparisonData | undefined;
 
   return (
     <div className="w-full animate-in fade-in-50 duration-500">
