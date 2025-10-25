@@ -43,130 +43,55 @@ const prompt = ai.definePrompt({
   output: {schema: TourItineraryOutputSchema},
   prompt: `Plan a trip to {{location}} for {{noOfDays}} days. Check-in date: {{checkInDate}}, {{adults}} adults, minimum user rating: {{minUserRating}}.
 
-Give the output in JSON format with the following schema:
+You must provide the output in JSON format. Do not add any commentary before or after the JSON.
+The JSON should have the following schema:
 
 {
   "items": [
     {
       "title": "Top Destinations",
       "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "description"
-        ]
-      }
+      "items": [
+        {
+          "name": "string",
+          "description": "string"
+        }
+      ]
     },
     {
       "title": "Suggested Itinerary",
       "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "day": {
-            "type": "integer",
-            "description": "The day number of the itinerary"
-          },
-          "activities": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "day",
-          "activities"
-        ]
-      }
+      "items": [
+        {
+          "day": "integer",
+          "activities": "string"
+        }
+      ]
     },
     {
       "title": "Hotel Comparison",
       "type": "object",
-      "properties": {
+      "items": {
         "search_parameters": {
-          "type": "object",
-          "properties": {
-            "check_in_date": {
-              "type": "string",
-              "format": "date"
-            },
-            "length_of_stay": {
-              "type": "integer"
-            },
-            "adults": {
-              "type": "integer"
-            },
-            "currency": {
-              "type": "string",
-              "const": "INR"
-            },
-            "min_user_rating": {
-              "type": "number",
-              "description": "Corresponds to the 'rating' requested"
-            }
-          },
-          "required": [
-            "check_in_date",
-            "length_of_stay",
-            "adults",
-            "currency",
-            "min_user_rating"
-          ]
+          "check_in_date": "string (format: date)",
+          "length_of_stay": "integer",
+          "adults": "integer",
+          "currency": "string (const: INR)",
+          "min_user_rating": "number"
         },
-        "hotels": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "hotel_name": {
-                "type": "string"
-              },
-              "hotel_class": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "review_rating": {
-                "type": "number"
-              },
-              "review_count": {
-                "type": "integer"
-              },
-              "total_stay_price_inr": {
-                "type": "number"
-              },
-              "deal_info": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              }
-            },
-            "required": [
-              "hotel_name",
-              "review_rating",
-              "review_count",
-              "total_stay_price_inr"
-            ]
+        "hotels": [
+          {
+            "hotel_name": "string",
+            "hotel_class": "string | null",
+            "review_rating": "number",
+            "review_count": "integer",
+            "total_stay_price_inr": "number",
+            "deal_info": "string | null"
           }
-        }
-      },
-      "required": [
-        "search_parameters",
-        "hotels"
-      ]
+        ]
+      }
     }
-  ],
-  "minItems": 3,
-  "maxItems": 3
+  ]
 }
 `,
 });
