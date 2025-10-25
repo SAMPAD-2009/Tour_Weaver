@@ -18,19 +18,12 @@ type Hotel = {
   hotel_name: string;
   hotel_class: string | null;
   review_rating: number;
-  review_count?: number;
-  total_stay_price_inr?: number;
+  review_count?: number | null;
+  total_stay_price_inr?: number | null;
   deal_info: string | null;
 };
 
 type HotelData = {
-  search_parameters: {
-    check_in_date: string;
-    length_of_stay: number;
-    adults: number;
-    currency: string;
-    min_user_rating: number;
-  };
   hotels: Hotel[];
 };
 
@@ -69,15 +62,12 @@ export default function HotelComparison({ hotelData }: HotelComparisonProps) {
     );
   }
 
-  const { search_parameters, hotels } = hotelData;
+  const { hotels } = hotelData;
 
   return (
     <Card>
       <CardHeader>
         <CardTitle className="font-headline text-2xl">Hotel Options</CardTitle>
-        <CardDescription>
-          Based on your search for a {search_parameters.length_of_stay}-day stay for {search_parameters.adults} adult(s) from {search_parameters.check_in_date}.
-        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="rounded-md border">

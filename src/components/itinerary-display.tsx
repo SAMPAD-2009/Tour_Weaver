@@ -11,7 +11,7 @@ type ItineraryDisplayProps = {
 };
 
 export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
-  const { destinations, itinerary: suggestedItinerary, hotels: hotelData } = itinerary;
+  const { destinations, itinerary: suggestedItinerary, hotels } = itinerary;
 
   return (
     <div className="w-full animate-in fade-in-50 duration-500">
@@ -29,7 +29,7 @@ export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
           <SuggestedItinerary itinerary={suggestedItinerary} />
         </TabsContent>
         <TabsContent value="hotels">
-          {hotelData ? <HotelComparison hotelData={hotelData} /> : <p>No hotel data available.</p>}
+          {hotels ? <HotelComparison hotelData={{ hotels: hotels }} /> : <p>No hotel data available.</p>}
         </TabsContent>
       </Tabs>
     </div>

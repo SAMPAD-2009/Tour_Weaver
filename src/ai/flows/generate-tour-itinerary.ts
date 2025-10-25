@@ -22,40 +22,29 @@ const TourItineraryInputSchema = z.object({
 });
 export type TourItineraryInput = z.infer<typeof TourItineraryInputSchema>;
 
+const DestinationSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+});
+
+const ItineraryDaySchema = z.object({
+  day: z.number(),
+  activities: z.string(),
+});
+
 const HotelSchema = z.object({
   hotel_name: z.string(),
   hotel_class: z.string().nullable(),
   review_rating: z.number(),
-  review_count: z.number().optional(),
-  total_stay_price_inr: z.number().optional(),
+  review_count: z.number().optional().nullable(),
+  total_stay_price_inr: z.number().optional().nullable(),
   deal_info: z.string().nullable(),
 });
 
-const HotelComparisonSchema = z.object({
-  search_parameters: z.object({
-    check_in_date: z.string(),
-    length_of_stay: z.number(),
-    adults: z.number(),
-    currency: z.string(),
-    min_user_rating: z.number(),
-  }),
-  hotels: z.array(HotelSchema),
-});
-
 const TourItineraryOutputSchema = z.object({
-  destinations: z.array(
-    z.object({
-      name: z.string(),
-      description: z.string(),
-    })
-  ),
-  itinerary: z.array(
-    z.object({
-      day: z.number(),
-      activities: z.string(),
-    })
-  ),
-  hotels: HotelComparisonSchema,
+  destinations: z.array(DestinationSchema),
+  itinerary: z.array(ItineraryDaySchema),
+  hotels: z.array(HotelSchema),
 });
 
 export type TourItineraryOutput = z.infer<typeof TourItineraryOutputSchema>;
@@ -68,19 +57,14 @@ const prompt = ai.definePrompt({
   name: 'tourItineraryPrompt',
   input: {schema: TourItineraryInputSchema},
   output: {schema: TourItineraryOutputSchema},
-  prompt: `You are an expert travel agent. Your task is to plan a trip to {{location}} for {{noOfDays}} days for {{adults}} adults, starting on {{checkInDate}}. The user requires hotels with a minimum rating of {{minUserRating}}.
+  prompt: `You are an expert travel agent. Plan a trip to {{location}} for {{noOfDays}} days for {{adults}} adults, starting on {{checkInDate}}. The user requires hotels with a minimum rating of {{minUserRating}}.
 
-You must provide the output in a valid JSON format that strictly follows this structure:
-{
-  "destinations": [ { "name": "...", "description": "..." }, ... ],
-  "itinerary": [ { "day": 1, "activities": "..." }, ... ],
-  "hotels": {
-    "search_parameters": { "check_in_date": "{{checkInDate}}", "length_of_stay": {{noOfDays}}, "adults": {{adults}}, "currency": "INR", "min_user_rating": {{minUserRating}} },
-    "hotels": [ { "hotel_name": "...", "hotel_class": "...", "review_rating": 4.5, "review_count": 123, "total_stay_price_inr": 15000, "deal_info": "..." }, ... ]
-  }
-}
+  Generate a response with the following structure:
+  - destinations: An array of 3 to 5 top destinations to visit in {{location}}. Each destination must have a name and a description.
+  - itinerary: A day-by-day plan of activities for {{noOfDays}} days.
+  - hotels: A list of 3-5 recommended hotels that meet the criteria. Provide the hotel name, star rating (hotel_class), review rating, and if possible, an estimated total price for the stay in INR.
 
-Do not add any commentary before or after the JSON. The entire response must be only the JSON object.
+You must provide the output in a valid JSON format that strictly follows the defined output schema. Do not add any commentary before or after the JSON.
 `,
 });
 
