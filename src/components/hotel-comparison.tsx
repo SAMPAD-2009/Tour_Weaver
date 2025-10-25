@@ -8,11 +8,20 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Star, Building2, Users, IndianRupee, BadgePercent } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Badge } from './ui/badge';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './ui/dialog';
+import { Button } from './ui/button';
+
 
 type Hotel = {
   hotel_name: string;
@@ -23,12 +32,10 @@ type Hotel = {
   deal_info: string | null;
 };
 
-type HotelData = {
-  hotels: Hotel[];
-};
-
 type HotelComparisonProps = {
-  hotelData: HotelData;
+  hotelData: {
+    hotels: Hotel[];
+  }
 };
 
 const StarRating = ({ rating, maxRating = 5, className }: { rating: number; maxRating?: number; className?: string }) => {
@@ -101,19 +108,22 @@ export default function HotelComparison({ hotelData }: HotelComparisonProps) {
                         <span className="text-muted-foreground">N/A</span>
                       )}
                       {hotel.deal_info && (
-                          <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger>
-                                     <Badge variant="secondary" className="mt-1 bg-primary/10 text-primary border-primary/20 cursor-help">
-                                        <BadgePercent className="h-3 w-3 mr-1"/>
-                                        Deal
-                                    </Badge>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>{hotel.deal_info}</p>
-                                </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Badge role="button" variant="secondary" className="mt-1 bg-primary/10 text-primary border-primary/20 cursor-pointer hover:bg-primary/20">
+                                <BadgePercent className="h-3 w-3 mr-1" />
+                                Deal
+                              </Badge>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>Special Deal Information</DialogTitle>
+                                <DialogDescription className="pt-4 text-base">
+                                  {hotel.deal_info}
+                                </DialogDescription>
+                              </DialogHeader>
+                            </DialogContent>
+                          </Dialog>
                       )}
                     </div>
                   </TableCell>
