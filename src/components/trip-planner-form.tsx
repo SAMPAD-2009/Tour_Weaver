@@ -75,8 +75,8 @@ export default function TripPlannerForm({ onSubmit, isLoading }: TripPlannerForm
                 control={form.control}
                 name="checkInDate"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Check-in Date</FormLabel>
+                  <FormItem className="flex flex-col pt-2">
+                    <FormLabel className='flex-1'>Check-in Date</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
