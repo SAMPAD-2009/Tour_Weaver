@@ -20,7 +20,8 @@ type HotelComparisonData = {
 export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
   const destinations = itinerary.items.find(item => item.title === 'Top Destinations')?.items as Destination[] || [];
   const suggestedItinerary = itinerary.items.find(item => item.title === 'Suggested Itinerary')?.items as ItineraryDay[] || [];
-  const hotelData = itinerary.items.find(item => item.title === 'Hotel Comparison')?.items as HotelComparisonData | undefined;
+  const hotelComparisonRaw = itinerary.items.find(item => item.title === 'Hotel Comparison');
+  const hotelData = (hotelComparisonRaw?.items as any)?.properties as HotelComparisonData | undefined;
   
   return (
     <div className="w-full animate-in fade-in-50 duration-500">
