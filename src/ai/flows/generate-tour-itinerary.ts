@@ -37,7 +37,6 @@ const HotelSchema = z.object({
   hotel_class: z.string().nullable(),
   review_rating: z.number(),
   review_count: z.number().optional().nullable(),
-  total_stay_price_inr: z.number().optional().nullable(),
   deal_info: z.string().nullable(),
 });
 
@@ -62,7 +61,7 @@ const prompt = ai.definePrompt({
   Generate a response with the following structure:
   - destinations: An array of 3 to 5 top destinations to visit in {{location}}. Each destination must have a name and a description.
   - itinerary: A day-by-day plan of activities for {{noOfDays}} days.
-  - hotels: A list of 3-5 recommended hotels that meet the criteria. Provide the hotel name, star rating (hotel_class), and review rating. You must calculate and include the 'total_stay_price_inr' based on the trip duration of {{noOfDays}} days and {{adults}} adults.
+  - hotels: A list of 3-5 recommended hotels that meet the criteria. Provide the hotel name, star rating (hotel_class), review rating, and any available deal information.
 
 You must provide the output in a valid JSON format that strictly follows the defined output schema. Do not add any commentary before or after the JSON.
 `,
