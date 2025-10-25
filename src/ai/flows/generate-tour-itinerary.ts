@@ -41,58 +41,14 @@ const prompt = ai.definePrompt({
   name: 'tourItineraryPrompt',
   input: {schema: TourItineraryInputSchema},
   output: {schema: TourItineraryOutputSchema},
-  prompt: `Plan a trip to {{location}} for {{noOfDays}} days. Check-in date: {{checkInDate}}, {{adults}} adults, minimum user rating: {{minUserRating}}.
+  prompt: `You are an expert travel agent. Your task is to plan a trip to {{location}} for {{noOfDays}} days for {{adults}} adults, starting on {{checkInDate}}. The user requires hotels with a minimum rating of {{minUserRating}}.
 
-You must provide the output in JSON format. Do not add any commentary before or after the JSON.
-The JSON should have the following schema:
+You must provide the output in a valid JSON format, containing an 'items' array with three objects:
+1.  A "Top Destinations" object.
+2.  A "Suggested Itinerary" object.
+3.  A "Hotel Comparison" object.
 
-{
-  "items": [
-    {
-      "title": "Top Destinations",
-      "type": "array",
-      "items": [
-        {
-          "name": "string",
-          "description": "string"
-        }
-      ]
-    },
-    {
-      "title": "Suggested Itinerary",
-      "type": "array",
-      "items": [
-        {
-          "day": "integer",
-          "activities": "string"
-        }
-      ]
-    },
-    {
-      "title": "Hotel Comparison",
-      "type": "object",
-      "items": {
-        "search_parameters": {
-          "check_in_date": "string (format: date)",
-          "length_of_stay": "integer",
-          "adults": "integer",
-          "currency": "string (const: INR)",
-          "min_user_rating": "number"
-        },
-        "hotels": [
-          {
-            "hotel_name": "string",
-            "hotel_class": "string | null",
-            "review_rating": "number",
-            "review_count": "integer",
-            "total_stay_price_inr": "number",
-            "deal_info": "string | null"
-          }
-        ]
-      }
-    }
-  ]
-}
+Do not add any commentary before or after the JSON. The entire response must be only the JSON object.
 `,
 });
 
@@ -104,6 +60,9 @@ const generateTourItineraryFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+    if (!output) {
+      throw new Error('An unexpected response was received from the server.');
+    }
+    return output;
   }
 );
