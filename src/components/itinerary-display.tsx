@@ -20,10 +20,10 @@ type HotelComparisonData = {
 export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
   const destinations = itinerary.items.find(item => item.title === 'Top Destinations')?.items as Destination[] || [];
   const suggestedItinerary = itinerary.items.find(item => item.title === 'Suggested Itinerary')?.items as ItineraryDay[] || [];
-  const hotelComparisonRaw = itinerary.items.find(item => item.title === 'Hotel Comparison');
+  const hotelComparison = itinerary.items.find(item => item.title === 'Hotel Comparison');
   
-  // Robustly find the hotel data, whether it's at the top level of `items` or nested within `properties`.
-  const hotelData = (hotelComparisonRaw?.items?.hotels ? hotelComparisonRaw.items : hotelComparisonRaw?.items?.properties) as HotelComparisonData | undefined;
+  // The AI sometimes nests the data one level deeper.
+  const hotelData = hotelComparison?.items as HotelComparisonData | undefined;
 
   return (
     <div className="w-full animate-in fade-in-50 duration-500">
@@ -41,7 +41,7 @@ export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
           <SuggestedItinerary itinerary={suggestedItinerary} />
         </TabsContent>
         <TabsContent value="hotels">
-            {hotelData?.hotels ? <HotelComparison hotelData={hotelData} /> : <p>No hotel data available.</p>}
+            {hotelData && hotelData.hotels ? <HotelComparison hotelData={hotelData} /> : <p>No hotel data available.</p>}
         </TabsContent>
       </Tabs>
     </div>

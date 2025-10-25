@@ -43,10 +43,10 @@ const prompt = ai.definePrompt({
   output: {schema: TourItineraryOutputSchema},
   prompt: `You are an expert travel agent. Your task is to plan a trip to {{location}} for {{noOfDays}} days for {{adults}} adults, starting on {{checkInDate}}. The user requires hotels with a minimum rating of {{minUserRating}}.
 
-You must provide the output in a valid JSON format, containing an 'items' array with three objects:
-1.  A "Top Destinations" object containing an array of destination objects with 'name' and 'description' fields.
-2.  A "Suggested Itinerary" object containing an array of day objects with 'day' and 'activities' fields.
-3.  A "Hotel Comparison" object containing a single object with 'search_parameters' and a 'hotels' array.
+You must provide the output in a valid JSON format. The root object must contain an 'items' array with exactly three objects:
+1.  A "Top Destinations" object. This object must have a key 'items' which is an array of destination objects. Each destination object must have 'name' and 'description' fields.
+2.  A "Suggested Itinerary" object. This object must have a key 'items' which is an array of day objects. Each day object must have 'day' and 'activities' fields.
+3.  A "Hotel Comparison" object. This object must have a key 'items' which is a single object containing 'search_parameters' and a 'hotels' array.
 
 Do not add any commentary before or after the JSON. The entire response must be only the JSON object.
 `,
