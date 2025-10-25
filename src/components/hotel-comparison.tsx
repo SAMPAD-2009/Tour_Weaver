@@ -91,7 +91,7 @@ export default function HotelComparison({ hotelData }: HotelComparisonProps) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {hotels.map((hotel, index) => (
+              {hotels.filter(hotel => hotel).map((hotel, index) => (
                 <TableRow key={index}>
                   <TableCell className="font-medium">
                     <div className="flex flex-col">
