@@ -1,3 +1,46 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "destination1",
+      "description": "A beautiful travel destination",
+      "imageUrl": "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0cmF2ZWwlMjBkZXN0aW5hdGlvbnxlbnwwfHx8fDE3NjEzNzY2MDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "travel destination"
+    },
+    {
+      "id": "destination2",
+      "description": "Another beautiful travel destination",
+      "imageUrl": "https://images.unsplash.com/photo-1667350616812-fba7af84e703?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxsYW5kc2NhcGUlMjB2aWV3fGVufDB8fHx8MTc2MTQwNjQ1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "landscape view"
+    },
+    {
+      "id": "destination3",
+      "description": "A scenic travel spot",
+      "imageUrl": "https://images.unsplash.com/photo-1607505158089-0900d450b08c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjaXR5JTIwc2NhcGV8ZW58MHx8fHwxNzYxNDA1MDgwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city scape"
+    },
+    {
+      "id": "destination4",
+      "description": "A captivating place to visit",
+      "imageUrl": "https://images.unsplash.com/photo-1526239187794-f8c27c7872ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtb3VudGFpbiUyMHJhbmdlfGVufDB8fHx8MTc2MTM2Njk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mountain range"
+    },
+    {
+      "id": "destination5",
+      "description": "An exciting travel location",
+      "imageUrl": "https://images.unsplash.com/photo-1518022525094-218670c9b745?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiZWFjaCUyMHN1bnNldHxlbnwwfHx8fDE3NjEzMDgxNDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "beach sunset"
+    },
+    {
+      "id": "destination6",
+      "description": "A historic travel location",
+      "imageUrl": "https://images.unsplash.com/photo-1714591066216-d2daa58f446b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxoaXN0b3JpYyUyMHJ1aW5zfGVufDB8fHx8MTc2MTM3MDc4M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "historic ruins"
+    },
+    {
+      "id": "destination7",
+      "description": "A bustling city to explore",
+      "imageUrl": "https://images.unsplash.com/photo-1618648098344-dd608624a1c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxidXN0bGluZyUyMGNpdHl8ZW58MHx8fHwxNzYxNDA2NDU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "bustling city"
+    }
+  ]
 }
