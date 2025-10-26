@@ -25,7 +25,6 @@ export type TourItineraryInput = z.infer<typeof TourItineraryInputSchema>;
 const DestinationSchema = z.object({
   name: z.string(),
   description: z.string(),
-  imageUrl: z.string().url(),
 });
 
 const ItineraryDaySchema = z.object({
@@ -67,7 +66,7 @@ Input:
 - Hotel Rating: Minimum {{minUserRating}} stars
 
 Instructions:
-1.  **Destinations**: Generate a list of top destinations to visit in {{location}}. For each destination, provide its name, a brief description, and a publicly accessible, high-quality image URL. You should source these images from Google Places or a similar service that provides stable, direct image links. Ensure the URLs are direct image links and are not prone to expiring.
+1.  **Destinations**: Generate a list of top destinations to visit in {{location}}. For each destination, provide its name and a brief description.
 2.  **Itinerary**: Create a day-by-day plan of activities for the entire duration of the trip ({{noOfDays}} days).
 3.  **Hotels**: Recommend a list of hotels that meet the user's criteria (minimum {{minUserRating}}-star rating). For each hotel, provide the name, star rating (hotel_class), review score, number of reviews, and any special deals or information.
 
