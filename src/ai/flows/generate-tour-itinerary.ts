@@ -25,6 +25,7 @@ export type TourItineraryInput = z.infer<typeof TourItineraryInputSchema>;
 const DestinationSchema = z.object({
   name: z.string(),
   description: z.string(),
+  imageUrl: z.string().url().describe('A publicly accessible URL for a high-quality image of the destination.'),
 });
 
 const ItineraryDaySchema = z.object({
@@ -38,6 +39,7 @@ const HotelSchema = z.object({
   review_rating: z.number(),
   review_count: z.number().optional().nullable(),
   deal_info: z.string().nullable(),
+  bookingUrl: z.string().url().describe('A URL to a third-party hotel booking website (e.g., booking.com, expedia.com).'),
 });
 
 const TourItineraryOutputSchema = z.object({
@@ -66,9 +68,9 @@ Input:
 - Hotel Rating: Minimum {{minUserRating}} stars
 
 Instructions:
-1.  **Destinations**: Generate a list of top destinations to visit in {{location}}. For each destination, provide its name and a brief description.
+1.  **Destinations**: Generate a list of 7 to 15 top destinations to visit in {{location}}. For each destination, provide its name, a brief description, and a valid, publicly accessible, high-quality image URL. Prioritize sources like Unsplash, Pexels, or Wikimedia Commons.
 2.  **Itinerary**: Create a day-by-day plan of activities for the entire duration of the trip ({{noOfDays}} days).
-3.  **Hotels**: Recommend a list of hotels that meet the user's criteria (minimum {{minUserRating}}-star rating). For each hotel, provide the name, star rating (hotel_class), review score, number of reviews, and any special deals or information.
+3.  **Hotels**: Recommend a list of 7 to 15 hotels that meet the user's criteria (minimum {{minUserRating}}-star rating). For each hotel, provide the name, star rating (hotel_class), review score, number of reviews, any special deals, and a valid booking URL from a major third-party booking site (like booking.com, expedia.com, etc.).
 
 Output Format:
 You MUST provide the output in a valid JSON format that strictly follows the defined output schema. Do not add any commentary before or after the JSON.

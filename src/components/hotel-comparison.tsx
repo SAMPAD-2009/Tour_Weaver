@@ -9,9 +9,10 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Star, Building2, Users, BadgePercent } from 'lucide-react';
+import { Star, Building2, Users, BadgePercent, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Badge } from './ui/badge';
+import { Button } from './ui/button';
 import {
   Dialog,
   DialogContent,
@@ -26,8 +27,8 @@ type Hotel = {
   hotel_class: string | null;
   review_rating: number;
   review_count?: number | null;
-  total_stay_price_inr?: number | null;
   deal_info: string | null;
+  bookingUrl: string;
 };
 
 type HotelComparisonProps = {
@@ -83,7 +84,8 @@ export default function HotelComparison({ hotelData }: HotelComparisonProps) {
                 <TableHead className="w-[300px]"><Building2 className="inline-block mr-2 h-4 w-4" />Hotel</TableHead>
                 <TableHead><Star className="inline-block mr-2 h-4 w-4" />Rating</TableHead>
                 <TableHead><Users className="inline-block mr-2 h-4 w-4" />Reviews</TableHead>
-                <TableHead className="text-right"><BadgePercent className="inline-block mr-2 h-4 w-4" />Deals</TableHead>
+                <TableHead><BadgePercent className="inline-block mr-2 h-4 w-4" />Deals</TableHead>
+                <TableHead className="text-right">Book</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -99,7 +101,7 @@ export default function HotelComparison({ hotelData }: HotelComparisonProps) {
                     <StarRating rating={hotel.review_rating} />
                   </TableCell>
                   <TableCell>{hotel.review_count?.toLocaleString() ?? 'N/A'}</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell>
                     {hotel.deal_info ? (
                       <Dialog>
                         <DialogTrigger asChild>
@@ -120,6 +122,14 @@ export default function HotelComparison({ hotelData }: HotelComparisonProps) {
                     ) : (
                       <span className="text-muted-foreground">None</span>
                     )}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button asChild variant="outline" size="sm">
+                      <a href={hotel.bookingUrl} target="_blank" rel="noopener noreferrer">
+                        Book Now
+                        <ExternalLink className="ml-2 h-3 w-3" />
+                      </a>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
