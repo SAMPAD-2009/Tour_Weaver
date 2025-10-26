@@ -15,9 +15,9 @@ import {z} from 'genkit';
 
 const TourItineraryInputSchema = z.object({
   location: z.string().describe('The destination for the trip.'),
-  noOfDays: z.number().describe('The number of days for the trip.'),
+  noOfDays: z.coerce.number().describe('The number of days for the trip.'),
   checkInDate: z.string().describe('The check-in date for the trip (YYYY-MM-DD).'),
-  adults: z.number().describe('The number of adults for the hotel booking.'),
+  adults: z.coerce.number().describe('The number of adults for the hotel booking.'),
   minUserRating: z.number().describe('The minimum user rating for hotels (0-5).'),
 });
 export type TourItineraryInput = z.infer<typeof TourItineraryInputSchema>;
@@ -67,7 +67,7 @@ Input:
 - Hotel Rating: Minimum {{minUserRating}} stars
 
 Instructions:
-1.  **Destinations**: Generate a list of 3 to 5 top destinations to visit in {{location}}. For each destination, provide its name, a brief description, and a publicly accessible, high-quality image URL.
+1.  **Destinations**: Generate a list of 3 to 5 top destinations to visit in {{location}}. For each destination, provide its name, a brief description, and a publicly accessible, high-quality image URL from a reliable source like Unsplash, Pexels, or Wikimedia Commons. Ensure the URLs are direct image links and are not prone to expiring.
 2.  **Itinerary**: Create a day-by-day plan of activities for the entire duration of the trip ({{noOfDays}} days).
 3.  **Hotels**: Recommend a list of 3 to 5 hotels that meet the user's criteria (minimum {{minUserRating}}-star rating). For each hotel, provide the name, star rating (hotel_class), review score, number of reviews, and any special deals or information.
 
