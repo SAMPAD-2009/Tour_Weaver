@@ -25,6 +25,7 @@ export type TourItineraryInput = z.infer<typeof TourItineraryInputSchema>;
 const DestinationSchema = z.object({
   name: z.string(),
   description: z.string(),
+  imageUrl: z.string().url(),
 });
 
 const ItineraryDaySchema = z.object({
@@ -56,14 +57,22 @@ const prompt = ai.definePrompt({
   name: 'tourItineraryPrompt',
   input: {schema: TourItineraryInputSchema},
   output: {schema: TourItineraryOutputSchema},
-  prompt: `You are an expert travel agent. Plan a trip to {{location}} for {{noOfDays}} days for {{adults}} adults, starting on {{checkInDate}}. The user requires hotels with a minimum rating of {{minUserRating}}.
+  prompt: `You are an expert travel agent. Your task is to create a personalized tour itinerary.
 
-  Generate a response with the following structure:
-  - destinations: An array of 3 to 5 top destinations to visit in {{location}}. Each destination must have a name and a description.
-  - itinerary: A day-by-day plan of activities for {{noOfDays}} days.
-  - hotels: A list of 3-5 recommended hotels that meet the criteria. Provide the hotel name, star rating (hotel_class), review rating, and any available deal information.
+Input:
+- Location: {{location}}
+- Duration: {{noOfDays}} days
+- Start Date: {{checkInDate}}
+- Guests: {{adults}} adults
+- Hotel Rating: Minimum {{minUserRating}} stars
 
-You must provide the output in a valid JSON format that strictly follows the defined output schema. Do not add any commentary before or after the JSON.
+Instructions:
+1.  **Destinations**: Generate a list of 3 to 5 top destinations to visit in {{location}}. For each destination, provide its name, a brief description, and a publicly accessible, high-quality image URL.
+2.  **Itinerary**: Create a day-by-day plan of activities for the entire duration of the trip ({{noOfDays}} days).
+3.  **Hotels**: Recommend a list of 3 to 5 hotels that meet the user's criteria (minimum {{minUserRating}}-star rating). For each hotel, provide the name, star rating (hotel_class), review score, number of reviews, and any special deals or information.
+
+Output Format:
+You MUST provide the output in a valid JSON format that strictly follows the defined output schema. Do not add any commentary before or after the JSON.
 `,
 });
 

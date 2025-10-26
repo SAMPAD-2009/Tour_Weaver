@@ -3,11 +3,11 @@
 import Image from 'next/image';
 import { MapPin } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 type Destination = {
   name: string;
   description: string;
+  imageUrl: string;
 };
 
 type TopDestinationsProps = {
@@ -28,17 +28,16 @@ export default function TopDestinations({ destinations }: TopDestinationsProps) 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {destinations.map((destination, index) => {
-        const placeholder = PlaceHolderImages[index % PlaceHolderImages.length];
         return (
           <Card key={index} className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
             <CardHeader className="p-0">
               <div className="relative h-48 w-full">
                 <Image
-                  src={placeholder.imageUrl}
+                  src={destination.imageUrl}
                   alt={destination.name}
                   fill
                   style={{ objectFit: 'cover' }}
-                  data-ai-hint={placeholder.imageHint}
+                  data-ai-hint={destination.name}
                 />
               </div>
             </CardHeader>
