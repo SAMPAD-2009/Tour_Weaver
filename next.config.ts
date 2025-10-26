@@ -24,12 +24,19 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'picsum.photos',
+        hostname: 'upload.unsplash.com',
         port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https'
+        ,
         hostname: 'upload.wikimedia.org',
         port: '',
         pathname: '/**',
