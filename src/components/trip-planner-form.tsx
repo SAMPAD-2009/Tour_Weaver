@@ -51,9 +51,9 @@ export default function TripPlannerForm({ onSubmit, isLoading }: TripPlannerForm
 
   return (
     <Card className="border-border/80 shadow-lg">
-      <CardContent className="p-6 md:p-8">
+      <CardContent className="p-4 sm:p-6 md:p-8">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FormField
                 control={form.control}
@@ -76,7 +76,7 @@ export default function TripPlannerForm({ onSubmit, isLoading }: TripPlannerForm
                 name="checkInDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col pt-2">
-                    <FormLabel className='flex-1'>Check-in Date</FormLabel>
+                    <FormLabel className='flex-1 mb-1.5'>Check-in Date</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -150,8 +150,8 @@ export default function TripPlannerForm({ onSubmit, isLoading }: TripPlannerForm
                 <FormItem>
                   <FormLabel>Minimum Hotel Rating: <span className="font-bold text-primary">{field.value.toFixed(1)}</span> / 5</FormLabel>
                   <FormControl>
-                     <div className="flex items-center gap-4">
-                        <Star className="h-4 w-4 text-muted-foreground" />
+                     <div className="flex items-center gap-4 pt-2">
+                        <Star className="h-5 w-5 text-muted-foreground" />
                         <Slider
                             min={0}
                             max={5}

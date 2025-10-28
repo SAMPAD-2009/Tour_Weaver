@@ -15,9 +15,9 @@ export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
 
   return (
     <div className="w-full animate-in fade-in-50 duration-500">
-      <h2 className="font-headline text-3xl md:text-4xl font-bold text-center mb-8">Your Custom Itinerary</h2>
+      <h2 className="font-headline text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8">Your Custom Itinerary</h2>
       <Tabs defaultValue="destinations" className="w-full">
-        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3">
+        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 h-auto sm:h-10">
           <TabsTrigger value="destinations">Top Destinations</TabsTrigger>
           <TabsTrigger value="itinerary">Suggested Itinerary</TabsTrigger>
           <TabsTrigger value="hotels">Hotel Comparison</TabsTrigger>

@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <header className="py-4 px-4 md:px-8 border-b border-border/50">
+      <header className="py-4 px-4 sm:px-6 md:px-8 border-b border-border/50">
         <div className="container mx-auto flex items-center gap-2">
            <Wind className="h-6 w-6 text-primary" />
           <h2 className="text-xl font-bold font-headline text-foreground">
@@ -43,12 +43,12 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex-1 container mx-auto p-4 md:p-8">
-        <section className="text-center mb-10 md:mb-16">
-          <h1 className="font-headline text-4xl md:text-6xl font-bold text-foreground tracking-tight">
+      <main className="flex-1 container mx-auto p-4 sm:p-6 md:p-8">
+        <section className="text-center mb-10 md:mb-12">
+          <h1 className="font-headline text-4xl sm:text-5xl md:text-6xl font-bold text-foreground tracking-tight">
             Weave Your Perfect Journey
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+          <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
             Let our AI assistant craft a personalized travel itinerary just for you. Discover destinations, activities, and the best hotels for your next adventure.
           </p>
         </section>

@@ -76,8 +76,8 @@ export default function HotelComparison({ hotelData }: HotelComparisonProps) {
       <CardHeader>
         <CardTitle className="font-headline text-2xl">Hotel Options</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="rounded-md border">
+      <CardContent className="overflow-x-auto">
+        <div className="rounded-md border min-w-[700px]">
           <Table>
             <TableHeader>
               <TableRow>
