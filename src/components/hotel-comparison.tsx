@@ -39,7 +39,7 @@ type HotelComparisonProps = {
 
 const StarRating = ({ rating, maxRating = 5, className }: { rating: number; maxRating?: number; className?: string }) => {
   if (rating === null || rating === undefined) return null;
-  const roundedRating = Math.round(rating);
+  const numericRating = typeof rating === 'string' ? parseFloat(rating) : rating;
   return (
     <div className={cn("flex items-center gap-0.5", className)}>
       {[...Array(maxRating)].map((_, i) => (
@@ -47,7 +47,7 @@ const StarRating = ({ rating, maxRating = 5, className }: { rating: number; maxR
           key={i}
           className={cn(
             "w-4 h-4",
-            i < roundedRating
+            i < numericRating
               ? "fill-accent text-accent"
               : "fill-muted text-muted-foreground/30"
           )}
