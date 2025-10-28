@@ -10,6 +10,10 @@ const loadingTexts = [
   "Finding the best hotels...",
   "Weaving your perfect journey...",
   "Generating awesome activities...",
+  "Plotting your adventure...",
+  "Consulting the travel oracles...",
+  "Packing your virtual bags...",
+  "Scouting hidden gems...",
 ];
 
 export default function AnimatedLoadingText() {
