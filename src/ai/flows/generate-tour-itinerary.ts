@@ -11,7 +11,6 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {findHotels} from '@/ai/tools/find-hotels';
 import {z} from 'genkit';
 
 const TourItineraryInputSchema = z.object({
@@ -59,7 +58,6 @@ const prompt = ai.definePrompt({
   name: 'tourItineraryPrompt',
   input: {schema: TourItineraryInputSchema},
   output: {schema: TourItineraryOutputSchema},
-  tools: [findHotels],
   prompt: `You are an expert travel agent. Your task is to create a personalized tour itinerary and find hotels.
 
 Input:
@@ -72,7 +70,7 @@ Input:
 Instructions:
 1.  **Destinations**: Generate a list of 7 to 15 top destinations to visit in {{location}}. For each destination, provide its name, a brief description, and a short hint for an image (imageHint). The hint should consist of one or two keywords and MUST include the location to ensure accuracy (e.g., 'St. Paul's Cathedral Kolkata', 'Eiffel Tower Paris').
 2.  **Itinerary**: Create a day-by-day plan of activities for the entire duration of the trip ({{noOfDays}} days).
-3.  **Hotels**: Use the findHotels tool to recommend a list of hotels that meet the user's criteria (location: {{location}}, minimum {{minUserRating}}-star rating).
+3.  **Hotels**: Recommend a list of hotels that meet the user's criteria (location: {{location}}, minimum {{minUserRating}}-star rating). For each hotel, provide its name, class (star rating), review score, number of reviews, any special deals, and a booking URL from a major travel site.
 
 Output Format:
 You MUST provide the output in a valid JSON format that strictly follows the defined output schema. Do not add any commentary before or after the JSON.
