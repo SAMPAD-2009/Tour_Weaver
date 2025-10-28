@@ -15,3 +15,36 @@ export async function getItinerary(input: TourItineraryInput): Promise<{ success
     return { success: false, error: `Failed to generate itinerary. ${errorMessage}` };
   }
 }
+
+export async function getUnsplashImage(query: string): Promise<string | null> {
+  const accessKey = process.env.UNSPLASH_ACCESS_KEY;
+  if (!accessKey) {
+    console.error("Unsplash API key is not configured.");
+    return null;
+  }
+
+  const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Client-ID ${accessKey}`,
+      },
+    });
+
+    if (!response.ok) {
+      console.error(`Unsplash API error: ${response.statusText}`);
+      return null;
+    }
+
+    const data = await response.json();
+    if (data.results && data.results.length > 0) {
+      return data.results[0].urls.regular;
+    } else {
+      return null; // No image found
+    }
+  } catch (error) {
+    console.error("Failed to fetch image from Unsplash:", error);
+    return null;
+  }
+}

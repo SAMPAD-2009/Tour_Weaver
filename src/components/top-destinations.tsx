@@ -1,8 +1,7 @@
 'use client';
 
-import Image from 'next/image';
-import { MapPin } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
+import DestinationCard from './destination-card';
 
 type Destination = {
   name: string;
@@ -27,30 +26,9 @@ export default function TopDestinations({ destinations }: TopDestinationsProps) 
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {destinations.map((destination, index) => {
-        return (
-          <Card key={index} className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-            <CardHeader className="p-0">
-              <div className="relative h-48 w-full">
-                <Image
-                  src={`https://picsum.photos/seed/${index + 1}/600/400`}
-                  alt={destination.name}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  data-ai-hint={destination.imageHint}
-                />
-              </div>
-            </CardHeader>
-            <CardContent className="p-6">
-              <CardTitle className="font-headline text-2xl mb-2 flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-primary" />
-                {destination.name}
-              </CardTitle>
-              <p className="text-muted-foreground">{destination.description}</p>
-            </CardContent>
-          </Card>
-        );
-      })}
+      {destinations.map((destination, index) => (
+        <DestinationCard key={index} destination={destination} />
+      ))}
     </div>
   );
 }
