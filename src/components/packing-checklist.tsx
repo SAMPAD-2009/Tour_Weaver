@@ -2,7 +2,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Package } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Package, Download } from 'lucide-react';
 
 type PackingChecklistProps = {
   packingList: string[];
@@ -19,13 +20,30 @@ export default function PackingChecklist({ packingList }: PackingChecklistProps)
     );
   }
 
+  const handleDownload = () => {
+    const listContent = packingList.join('\n');
+    const blob = new Blob([listContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'packing-list.txt';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="font-headline text-2xl flex items-center gap-2">
           <Package />
           What to Pack
         </CardTitle>
+        <Button variant="outline" size="sm" onClick={handleDownload}>
+          <Download className="mr-2 h-4 w-4" />
+          Download List
+        </Button>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4">
