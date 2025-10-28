@@ -9,6 +9,7 @@ import { getItinerary } from '@/app/actions';
 import TripPlannerForm from '@/components/trip-planner-form';
 import ItineraryDisplay from '@/components/itinerary-display';
 import { LoadingSpinner } from '@/components/loading-spinner';
+import AnimatedLoadingText from '@/components/animated-loading-text';
 
 export default function Home() {
   const [itinerary, setItinerary] = useState<TourItineraryOutput | null>(null);
@@ -58,7 +59,12 @@ export default function Home() {
         </div>
 
         <div className="mt-12 md:mt-16">
-          {isLoading && <LoadingSpinner />}
+          {isLoading && (
+            <div className="flex flex-col items-center gap-4">
+              <LoadingSpinner />
+              <AnimatedLoadingText />
+            </div>
+          )}
           {itinerary && <ItineraryDisplay itinerary={itinerary} />}
         </div>
       </main>
