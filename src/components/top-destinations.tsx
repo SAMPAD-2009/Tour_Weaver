@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 type Destination = {
   name: string;
   description: string;
-  imageUrl: string;
+  imageHint: string;
 };
 
 type TopDestinationsProps = {
@@ -33,11 +33,11 @@ export default function TopDestinations({ destinations }: TopDestinationsProps) 
             <CardHeader className="p-0">
               <div className="relative h-48 w-full">
                 <Image
-                  src={destination.imageUrl}
+                  src={`https://picsum.photos/seed/${index + 1}/600/400`}
                   alt={destination.name}
                   fill
                   style={{ objectFit: 'cover' }}
-                  data-ai-hint={destination.name}
+                  data-ai-hint={destination.imageHint}
                 />
               </div>
             </CardHeader>

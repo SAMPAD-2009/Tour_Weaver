@@ -25,7 +25,7 @@ export type TourItineraryInput = z.infer<typeof TourItineraryInputSchema>;
 const DestinationSchema = z.object({
   name: z.string(),
   description: z.string(),
-  imageUrl: z.string().url().describe('A publicly accessible URL for a high-quality image of the destination.'),
+  imageHint: z.string().describe("One or two descriptive keywords for the destination (e.g., 'Eiffel Tower', 'tropical beach')."),
 });
 
 const ItineraryDaySchema = z.object({
@@ -68,7 +68,7 @@ Input:
 - Hotel Rating: Minimum {{minUserRating}} stars
 
 Instructions:
-1.  **Destinations**: Generate a list of 7 to 15 top destinations to visit in {{location}}. For each destination, provide its name, a brief description, and a valid, publicly accessible, high-quality image URL from a reliable source like Unsplash (images.unsplash.com).
+1.  **Destinations**: Generate a list of 7 to 15 top destinations to visit in {{location}}. For each destination, provide its name, a brief description, and a short hint for an image (imageHint) consisting of one or two keywords (e.g., 'Eiffel Tower', 'tropical beach').
 2.  **Itinerary**: Create a day-by-day plan of activities for the entire duration of the trip ({{noOfDays}} days).
 3.  **Hotels**: Recommend a list of 7 to 15 hotels that meet the user's criteria (minimum {{minUserRating}}-star rating). For each hotel, provide the name, star rating (hotel_class), review score, number of reviews, any special deals, and a valid booking URL from a major third-party booking site (like booking.com, expedia.com, etc.).
 
