@@ -5,7 +5,7 @@ export async function getItinerary(input: TourItineraryInput): Promise<{ success
   try {
     const itinerary = await generateTourItinerary(input);
     // Basic validation to ensure the AI returned the core objects
-    if (!itinerary || !itinerary.destinations || !itinerary.itinerary || !itinerary.hotels) {
+    if (!itinerary || !itinerary.destinations || !itinerary.itinerary || !itinerary.hotels || !itinerary.packingList) {
       throw new Error("AI failed to return a valid itinerary structure.");
     }
     return { success: true, data: itinerary };
@@ -20,7 +20,7 @@ export async function getUnsplashImage(query: string): Promise<string | null> {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY;
   if (!accessKey) {
     console.error("Unsplash API key is not configured.");
-    return null;
+    return "https://picsum.photos/seed/1/600/400"; // Return a placeholder
   }
 
   const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`;
@@ -34,17 +34,17 @@ export async function getUnsplashImage(query: string): Promise<string | null> {
 
     if (!response.ok) {
       console.error(`Unsplash API error: ${response.statusText}`);
-      return null;
+      return `https://picsum.photos/seed/2/600/400`; // Return a placeholder on error
     }
 
     const data = await response.json();
     if (data.results && data.results.length > 0) {
       return data.results[0].urls.regular;
     } else {
-      return null; // No image found
+      return `https://picsum.photos/seed/3/600/400`; // No image found, return placeholder
     }
   } catch (error) {
     console.error("Failed to fetch image from Unsplash:", error);
-    return null;
+    return `https://picsum.photos/seed/4/600/400`; // Return a placeholder on exception
   }
 }

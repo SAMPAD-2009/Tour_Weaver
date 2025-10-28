@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TopDestinations from './top-destinations';
 import SuggestedItinerary from './suggested-itinerary';
 import HotelComparison from './hotel-comparison';
+import PackingChecklist from './packing-checklist';
 import type { TourItineraryOutput } from '@/ai/flows/generate-tour-itinerary';
 
 type ItineraryDisplayProps = {
@@ -11,16 +12,17 @@ type ItineraryDisplayProps = {
 };
 
 export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
-  const { destinations, itinerary: suggestedItinerary, hotels } = itinerary;
+  const { destinations, itinerary: suggestedItinerary, hotels, packingList } = itinerary;
 
   return (
     <div className="w-full animate-in fade-in-50 duration-500">
       <h2 className="font-headline text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8">Your Custom Itinerary</h2>
       <Tabs defaultValue="destinations" className="w-full">
-        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 h-auto sm:h-10">
+        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-4 h-auto sm:h-10">
           <TabsTrigger value="destinations">Top Destinations</TabsTrigger>
           <TabsTrigger value="itinerary">Suggested Itinerary</TabsTrigger>
           <TabsTrigger value="hotels">Hotel Comparison</TabsTrigger>
+          <TabsTrigger value="packing">Packing List</TabsTrigger>
         </TabsList>
         <TabsContent value="destinations">
           <TopDestinations destinations={destinations} />
@@ -30,6 +32,9 @@ export default function ItineraryDisplay({ itinerary }: ItineraryDisplayProps) {
         </TabsContent>
         <TabsContent value="hotels">
           {hotels ? <HotelComparison hotelData={{ hotels: hotels }} /> : <p>No hotel data available.</p>}
+        </TabsContent>
+        <TabsContent value="packing">
+          <PackingChecklist packingList={packingList} />
         </TabsContent>
       </Tabs>
     </div>

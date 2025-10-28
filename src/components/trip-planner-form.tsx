@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { format } from 'date-fns';
-import { CalendarIcon, Loader2, Plane, Users, Star, CalendarDays } from 'lucide-react';
+import { CalendarIcon, Loader2, Plane, Users, Star, CalendarDays, Wallet } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Slider } from '@/components/ui/slider';
 import { Card, CardContent } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { TourItineraryInput } from '@/ai/flows/generate-tour-itinerary';
 
 
@@ -23,6 +24,7 @@ const formSchema = z.object({
   checkInDate: z.date({ required_error: 'A check-in date is required.' }),
   adults: z.coerce.number().min(1, { message: 'Must be at least 1 adult.' }),
   minUserRating: z.number().min(0).max(5),
+  budget: z.string({ required_error: 'Please select a budget level.' }),
 });
 
 type TripPlannerFormProps = {
@@ -38,6 +40,7 @@ export default function TripPlannerForm({ onSubmit, isLoading }: TripPlannerForm
       noOfDays: 7,
       adults: 2,
       minUserRating: 4,
+      budget: 'Mid-Range',
     },
   });
 
@@ -108,7 +111,7 @@ export default function TripPlannerForm({ onSubmit, isLoading }: TripPlannerForm
               />
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <FormField
                     control={form.control}
                     name="noOfDays"
@@ -140,6 +143,31 @@ export default function TripPlannerForm({ onSubmit, isLoading }: TripPlannerForm
                         <FormMessage />
                     </FormItem>
                     )}
+                />
+                <FormField
+                  control={form.control}
+                  name="budget"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Budget Level</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <div className="relative">
+                             <Wallet className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <SelectTrigger className="pl-9">
+                              <SelectValue placeholder="Select a budget" />
+                            </SelectTrigger>
+                          </div>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Budget">Budget</SelectItem>
+                          <SelectItem value="Mid-Range">Mid-Range</SelectItem>
+                          <SelectItem value="Luxury">Luxury</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
             </div>
 
